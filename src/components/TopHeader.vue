@@ -1,8 +1,8 @@
 <template>
   <div class="top-header">
     <h3 class="top-header__title">Добавление товара</h3>
-    <sort-button>
-      По умолчанию
+    <sort-button @select-sort-state-event="SelectSortState">
+      {{sortState.titleState}}
     </sort-button>
   </div>
 </template>
@@ -12,7 +12,22 @@ import SortButton from "@/components/UI/SortButton.vue";
 export default {
   name: "top-header",
   components: {
-    SortButton
+    SortButton,
+  },
+  data() {
+    return {
+      sortState: {
+        id: "default",
+        titleState: "По умолчанию"
+      },
+      
+    }
+  },
+  methods: {
+    SelectSortState(state) {
+      this.sortState = state 
+      this.$emit('select-sort-state-event', state)
+    }
   }
 };
 </script>

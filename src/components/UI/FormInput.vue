@@ -1,5 +1,11 @@
 <template>
-  <input class="form-input" type="text" :placeholder="placeholder" />
+  <input
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
+    class="form-input"
+    type="text"
+    :placeholder="placeholder"
+  />
 </template>
 
 <script>
@@ -8,9 +14,14 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: "Введите свое значение"
-    }
-  }
+      default: "Введите свое значение",
+    },
+    modelValue: {
+      type: String,
+      default: "",
+    },
+  },
+  emits: ["update:modelValue"],
 };
 </script>
 
@@ -27,5 +38,7 @@ export default {
   line-height: 15px;
 
   width: 100%;
+
+  
 }
 </style>

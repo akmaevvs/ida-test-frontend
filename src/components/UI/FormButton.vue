@@ -1,12 +1,18 @@
 <template>
-  <button class="form-button">
+  <button type="submit" :class="{ 'form-button__valid': valid }" class="form-button">
     <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
-  name: "form-button"
+  name: "form-button",
+  props: {
+    valid: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 
@@ -15,8 +21,15 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
-  background: #eeeeee;
+  background-color: #eeeeee;
   border-radius: 10px;
-  cursor: pointer;
+  cursor: default;
+  transition: background-color .2s ease-in-out;
+
+  &__valid {
+    background-color: #7BAE73;
+    cursor: pointer;
+    color: #fff;
+  }
 }
 </style>
