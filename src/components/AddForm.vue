@@ -249,4 +249,10 @@ export default {
     }
   }
 }
+@media screen and (max-width: 600px) {
+  .add-form {
+    position: relative;
+    top: 0px;
+  }
+}
 </style>

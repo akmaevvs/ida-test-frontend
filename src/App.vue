@@ -3,6 +3,7 @@
     <top-header @select-sort-state-event="SelectSortState" />
     <section class="content-section">
       <add-form
+        class="add-form"
         :productListLength="productListLength"
         @add-product-event="AddProduct"
       />
@@ -138,7 +139,7 @@ export default {
 body {
   position: relative;
   background-color: #fffefbcc;
-  overflow: hidden;
+  // overflow-x: hidden;
 }
 input,
 button {
@@ -193,18 +194,18 @@ input::placeholder {
 }
 
 .inner-container {
-  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  padding-bottom: 32px;
 
   & .content-section {
     display: flex;
     justify-content: space-between;
     gap: 16px;
+    padding: 0 32px 0 32px;
     width: 100%;
     position: relative;
 
@@ -218,6 +219,34 @@ input::placeholder {
         font-size: 20px;
       }
     }
+  }
+  & .add-button-block {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    bottom: 20px;
+    margin: 0 auto;
+    margin-left: -32px;
+    // left: 0;
+    // right: 0;
+
+    & .add-button {
+      background-color: green;
+      padding: 8px 20px;
+      border-radius: 10px;
+      box-shadow: 0px 3px 10px #000;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .content-section {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
   }
 }
 </style>

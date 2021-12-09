@@ -54,4 +54,9 @@ export default {
   opacity: 0;
   transform: scale(.0);
 }
+@media screen and (max-width: 600px) {
+  .product-list {
+    justify-content: center;
+  }
+}
 </style>
