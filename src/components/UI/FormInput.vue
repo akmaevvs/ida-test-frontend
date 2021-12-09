@@ -1,9 +1,8 @@
 <template>
   <input
     :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
+    @input="EmitInput($event)"
     class="form-input"
-    type="text"
     :placeholder="placeholder"
   />
 </template>
@@ -14,31 +13,25 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: "Введите свое значение",
+      default: "Введите свое значение"
     },
     modelValue: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   emits: ["update:modelValue"],
+  methods: {
+    EmitInput($event) {
+      $event.target.value = $event.target.value.replace(/[^0-9 ]/gm, "");
+      this.$emit("update:modelValue", $event.target.value);
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .form-input {
-  background: #fffefb;
-  box-shadow: 0px 2px 5px #0000001a;
-  border-radius: 4px;
-  padding: 10px 16px;
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 15px;
-
-  width: 100%;
-
   
 }
 </style>

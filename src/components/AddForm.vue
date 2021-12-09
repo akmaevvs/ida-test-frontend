@@ -2,20 +2,20 @@
   <form class="add-form" @submit.prevent="AddProduct" novalidate>
     <div class="input-block">
       <form-label :required="true">Наименование товара</form-label>
-      <form-input
+      <input
+        type="text"
         v-model="product.title"
         class="input-block__input input-block__input input-block__input--valid"
         :placeholder="'Наименование товара'"
         required
         @input="RemoveNoValid"
       />
-      <span class="valid-exception valid-exception--none"
-        >Поле является обязательным</span
-      >
+      <span class="valid-exception valid-exception--none">Поле является обязательным</span>
     </div>
     <div class="input-block">
       <form-label :required="false">Описание товара</form-label>
-      <form-input
+      <input
+        type="text"
         v-model="product.desc"
         class="input-block__input input-block__input--valid"
         :placeholder="'Введите описание товара'"
@@ -23,7 +23,8 @@
     </div>
     <div class="input-block">
       <form-label :required="true">Ссылка на изображение товара</form-label>
-      <form-input
+      <input
+        type="text"
         v-model="product.img"
         class="input-block__input input-block__input--valid"
         :class="{ 'input-block--no-valid-img': !validImgUrl }"
@@ -31,16 +32,16 @@
         required
         @input="RemoveNoValid"
       />
-      <span class="valid-exception valid-exception--none"
-        >Поле является обязательным</span
-      >
-      <span v-if="!validImgUrl" class="valid-exception valid-exception--block"
-        >Введите корректную ссылку на изображение</span
-      >
+      <span class="valid-exception valid-exception--none">Поле является обязательным</span>
+      <span
+        v-if="!validImgUrl"
+        class="valid-exception valid-exception--block"
+      >Введите корректную ссылку на изображение</span>
     </div>
     <div class="input-block">
       <form-label :required="true">Цена товара</form-label>
-      <form-input
+      <input
+        type="text"
         v-model="product.price"
         class="input-block__input input-block__input--valid"
         :placeholder="'Введите цену товара'"
@@ -50,9 +51,7 @@
           InsertSpace();
         "
       />
-      <span class="valid-exception valid-exception--none"
-        >Поле является обязательным</span
-      >
+      <span class="valid-exception valid-exception--none">Поле является обязательным</span>
     </div>
     <div class="input-block input-block--button">
       <form-button type="submit" :valid="valid">Добавить товар</form-button>
@@ -61,15 +60,15 @@
 </template>
 
 <script>
-import FormInput from "@/components/UI/FormInput.vue";
+// import FormInput from "@/components/UI/FormInput.vue";
 import FormLabel from "@/components/UI/FormLabel.vue";
 import FormButton from "@/components/UI/FormButton.vue";
 export default {
   name: "add-form",
   components: {
-    FormInput,
+    // FormInput,
     FormLabel,
-    FormButton,
+    FormButton
   },
   data() {
     return {
@@ -78,17 +77,18 @@ export default {
         title: null,
         desc: null,
         img: null,
-        price: null,
+        price: null
       },
       valid: false,
       validImgUrl: true,
+      alph: "1234567890 "
     };
   },
   props: {
     productListLength: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   watch: {
     product: {
@@ -110,15 +110,16 @@ export default {
         } else {
           this.validImgUrl = true;
         }
-      },
-    },
+      }
+    }
   },
   methods: {
     InsertSpace() {
-      this.product.price = this.product.price.replace(" ", "");
       this.product.price = this.product.price
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        .replace(" ", "")
+        .replace(/(\d{1,3}(?=(\d{3})+(?:\.\d|\b)))/g,"$1 ")
+        .replace(/[^0-9 ]/gm, "");
+      console.log(this.product.price);
     },
     RemoveNoValid($event) {
       $event.target.classList.remove("input-block--no-valid");
@@ -134,35 +135,37 @@ export default {
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
       for (let i = 0; i < 5; i++)
-        id += this.productListLength + alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        id +=
+          this.productListLength +
+          alphabet.charAt(Math.floor(Math.random() * alphabet.length));
 
       return id;
     },
     AddProduct() {
       if (this.valid) {
-        let http = new XMLHttpRequest();
+        // let http = new XMLHttpRequest();
 
-        http.open("HEAD", this.product.img, false);
-        http.send();
+        // http.open("HEAD", this.product.img, false);
+        // http.send();
 
-        console.log(http.status != 404);
-        if (http.status != 404) {
-          this.product.id = this.MakeId();
-          this.$emit("add-product-event", this.product);
-          this.product = {
-            title: null,
-            desc: null,
-            img: null,
-            price: null,
-          };
-          this.valid = false;
-        } else {
-          this.validImgUrl = false;
-        }
+        // console.log(http.status != 404);
+        // if (http.status != 404) {
+        this.product.id = this.MakeId();
+        this.$emit("add-product-event", this.product);
+        this.product = {
+          title: null,
+          desc: null,
+          img: null,
+          price: null
+        };
+        this.valid = false;
+        // } else {
+        //   this.validImgUrl = false;
+        // }
       } else {
         const requiredInputs = document.querySelectorAll("input[required]");
 
-        requiredInputs.forEach((input) => {
+        requiredInputs.forEach(input => {
           if (!input.value) {
             input.classList.add("input-block--no-valid");
             input.nextSibling.classList.remove("valid-exception--none");
@@ -172,8 +175,8 @@ export default {
 
         console.log(requiredInputs);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -200,6 +203,17 @@ export default {
     width: 100%;
     position: relative;
     &__input {
+      background: #fffefb;
+      box-shadow: 0px 2px 5px #0000001a;
+      border-radius: 4px;
+      padding: 10px 16px;
+
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+
+      width: 100%;
       transition: border-color 0.2s ease-in-out;
       &:focus {
         border-color: #bbb7b8;
