@@ -1,6 +1,6 @@
 <template>
   <div class="product-card">
-    <img class="product-card__img" :src="productCard?.img" alt />
+    <img class="product-card__img" @error="SetDefault" :src="productCard?.img" alt />
     <div class="product-card__info">
       <h4 class="product-card__title">{{ productCard?.title }}</h4>
       <p class="product-card__desc">
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import defaultImgProductCard from "@/assets/img/default_img_product_card.png";
 import deleteButtonImg from "@/assets/img/delete_button_img.png";
 import ConfirmDelete from "@/components/ConfirmDelete.vue";
 
@@ -39,19 +38,17 @@ export default {
   },
   data() {
     return {
-      defaultImgProductCard,
       deleteButtonImg,
       showConfirm: false,
     };
   },
-
   props: {
     productCard: {
       type: Object,
       default: () => {
         return {
           id: "0",
-          img: defaultImgProductCard,
+          img: "",
           title: "Наименование товара",
           desc: `Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк`,
           price: "10 000",
@@ -60,6 +57,9 @@ export default {
     },
   },
   methods: {
+    SetDefault() {
+      this.$emit("change-default-img", this.productCard.id)
+    },
     ShowConfirmModal() {
       this.showConfirm = true;
     },
@@ -80,6 +80,7 @@ export default {
   flex-direction: column;
   width: 100%;
   max-width: 332px;
+  justify-content: space-between;
 
   background: #fffefb;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04),

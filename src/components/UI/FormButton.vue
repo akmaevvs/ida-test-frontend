@@ -30,6 +30,10 @@ export default {
     background-color: #7BAE73;
     cursor: pointer;
     color: #fff;
+
+    &:hover {
+      background-color: #87b580;
+    }
   }
 }
 </style>

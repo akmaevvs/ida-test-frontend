@@ -10,7 +10,9 @@
         required
         @input="RemoveNoValid"
       />
-      <span class="valid-exception valid-exception--none">Поле является обязательным</span>
+      <span class="valid-exception valid-exception--none"
+        >Поле является обязательным</span
+      >
     </div>
     <div class="input-block">
       <form-label :required="false">Описание товара</form-label>
@@ -32,11 +34,12 @@
         required
         @input="RemoveNoValid"
       />
-      <span class="valid-exception valid-exception--none">Поле является обязательным</span>
-      <span
-        v-if="!validImgUrl"
-        class="valid-exception valid-exception--block"
-      >Введите корректную ссылку на изображение</span>
+      <span class="valid-exception valid-exception--none"
+        >Поле является обязательным</span
+      >
+      <span v-if="!validImgUrl" class="valid-exception valid-exception--block"
+        >Введите корректную ссылку на изображение</span
+      >
     </div>
     <div class="input-block">
       <form-label :required="true">Цена товара</form-label>
@@ -51,7 +54,9 @@
           InsertSpace();
         "
       />
-      <span class="valid-exception valid-exception--none">Поле является обязательным</span>
+      <span class="valid-exception valid-exception--none"
+        >Поле является обязательным</span
+      >
     </div>
     <div class="input-block input-block--button">
       <form-button type="submit" :valid="valid">Добавить товар</form-button>
@@ -60,7 +65,6 @@
 </template>
 
 <script>
-// import FormInput from "@/components/UI/FormInput.vue";
 import FormLabel from "@/components/UI/FormLabel.vue";
 import FormButton from "@/components/UI/FormButton.vue";
 export default {
@@ -68,7 +72,7 @@ export default {
   components: {
     // FormInput,
     FormLabel,
-    FormButton
+    FormButton,
   },
   data() {
     return {
@@ -77,18 +81,18 @@ export default {
         title: null,
         desc: null,
         img: null,
-        price: null
+        price: null,
       },
       valid: false,
       validImgUrl: true,
-      alph: "1234567890 "
+      alph: "1234567890 ",
     };
   },
   props: {
     productListLength: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   watch: {
     product: {
@@ -110,14 +114,14 @@ export default {
         } else {
           this.validImgUrl = true;
         }
-      }
-    }
+      },
+    },
   },
   methods: {
     InsertSpace() {
       this.product.price = this.product.price
         .replace(" ", "")
-        .replace(/(\d{1,3}(?=(\d{3})+(?:\.\d|\b)))/g,"$1 ")
+        .replace(/(\d{1,3}(?=(\d{3})+(?:\.\d|\b)))/g, "$1 ")
         .replace(/[^0-9 ]/gm, "");
       console.log(this.product.price);
     },
@@ -143,20 +147,13 @@ export default {
     },
     AddProduct() {
       if (this.valid) {
-        // let http = new XMLHttpRequest();
-
-        // http.open("HEAD", this.product.img, false);
-        // http.send();
-
-        // console.log(http.status != 404);
-        // if (http.status != 404) {
         this.product.id = this.MakeId();
         this.$emit("add-product-event", this.product);
         this.product = {
           title: null,
           desc: null,
           img: null,
-          price: null
+          price: null,
         };
         this.valid = false;
         // } else {
@@ -165,7 +162,7 @@ export default {
       } else {
         const requiredInputs = document.querySelectorAll("input[required]");
 
-        requiredInputs.forEach(input => {
+        requiredInputs.forEach((input) => {
           if (!input.value) {
             input.classList.add("input-block--no-valid");
             input.nextSibling.classList.remove("valid-exception--none");
@@ -175,8 +172,8 @@ export default {
 
         console.log(requiredInputs);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

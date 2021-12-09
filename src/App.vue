@@ -10,6 +10,7 @@
         <product-list
           v-if="productList.length > 0"
           @delete-product-event="DeleteProduct"
+          @change-default-img="SetDefault"
           :productList="productList"
         />
         <div class="empty-product-block" v-else>
@@ -24,12 +25,14 @@
 import TopHeader from "@/components/TopHeader.vue";
 import AddForm from "@/components/AddForm.vue";
 import ProductList from "@/components/ProductList.vue";
+import defaultImgProductCard from "@/assets/img/default_img_product_card.jpg";
 
 export default {
   name: "App",
   components: { TopHeader, AddForm, ProductList },
   data() {
     return {
+      defaultImgProductCard,
       productList: [],
       productListLength: "0",
       sortState: {
@@ -52,6 +55,14 @@ export default {
     },
   },
   methods: {
+    SetDefault(id) {
+      this.productList = this.productList.filter((product) => {
+        if (product.id === id) {
+          product.img = this.defaultImgProductCard;
+        }
+        return product;
+      });
+    },
     AddProduct(product) {
       console.log("added");
       console.log(product);
@@ -127,6 +138,7 @@ export default {
 body {
   position: relative;
   background-color: #fffefbcc;
+  overflow: hidden;
 }
 input,
 button {
@@ -146,6 +158,8 @@ input::placeholder {
   -moz-osx-font-smoothing: grayscale;
   color: #3f3f3f;
 }
+
+// fade effect
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease-in-out;
@@ -155,27 +169,29 @@ input::placeholder {
 .fade-leave-to {
   opacity: 0;
 }
+
+// add/delete product
 .list-enter-active,
 .list-leave-active {
   transition: all 0.5s ease-in-out;
 }
-.list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+.list-enter,
+.list-leave-to {
   opacity: 0;
-  transform: translateY(-100%);
-}
-.slide-fade-enter-active {
-  transition: all 0.5s ease-out;
+  transform: translateY(100%);
 }
 
+// appearence products
+.slide-fade-enter-active,
 .slide-fade-leave-active {
   transition: all 0.5s ease-in-out;
 }
-
 .slide-fade-enter-from,
 .slide-fade-leave-to {
-  transform: translateX(-100%);
+  transform: translateX(100%);
   opacity: 0;
 }
+
 .inner-container {
   padding: 32px;
   display: flex;

@@ -6,6 +6,7 @@
         :key="productCard.id"
         :productCard="productCard"
         @delete-product-event="DeleteProduct"
+        @change-default-img="SetDefault"
       />
     </transition-group>
   </div>
@@ -25,8 +26,10 @@ export default {
     },
   },
   methods: {
+    SetDefault(id) {
+      this.$emit('change-default-img', id)
+    },
     DeleteProduct(id) {
-      console.log(id);
       this.$emit("delete-product-event", id);
     },
   },
@@ -49,6 +52,6 @@ export default {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateX(-100%);
+  transform: scale(.0);
 }
 </style>
