@@ -65,10 +65,7 @@ export default {
       });
     },
     AddProduct(product) {
-      console.log("added");
-      console.log(product);
       this.productList.unshift(product);
-      console.log(this.productList);
       this.productListLength = this.productList.length.toString();
 
       this.SelectSortState(this.sortState);
@@ -79,18 +76,14 @@ export default {
           return product;
         }
       });
-      console.log(this.productList);
     },
     SelectSortState(state) {
       this.sortState = state;
-      console.log(state);
       if (state.id == "by-name") {
-        console.log("by-name");
         this.productList.sort((a, b) =>
           a.title > b.title ? 1 : a.title < b.title ? -1 : 0
         );
       } else if (state.id == "min-price") {
-        console.log("by-name");
         this.productList.sort((a, b) =>
           parseInt(a.price.replaceAll(" ", "")) >
           parseInt(b.price.replaceAll(" ", ""))
@@ -101,7 +94,6 @@ export default {
             : 0
         );
       } else if (state.id == "max-price") {
-        console.log("by-name");
         this.productList.sort((a, b) =>
           parseInt(a.price.replaceAll(" ", "")) <
           parseInt(b.price.replaceAll(" ", ""))
@@ -116,7 +108,6 @@ export default {
           a.id < b.id ? 1 : a.id > b.id ? -1 : 0
         );
       }
-      console.log(this.productList);
     },
   },
 };
@@ -198,6 +189,7 @@ input::placeholder {
   flex-direction: column;
   width: 100%;
   max-width: 1440px;
+  gap: 16px;
   margin: 0 auto;
   padding-bottom: 32px;
 

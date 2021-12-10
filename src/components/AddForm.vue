@@ -123,7 +123,6 @@ export default {
         .replace(" ", "")
         .replace(/(\d{1,3}(?=(\d{3})+(?:\.\d|\b)))/g, "$1 ")
         .replace(/[^0-9 ]/gm, "");
-      console.log(this.product.price);
     },
     RemoveNoValid($event) {
       $event.target.classList.remove("input-block--no-valid");
@@ -170,7 +169,6 @@ export default {
           }
         });
 
-        console.log(requiredInputs);
       }
     },
   },

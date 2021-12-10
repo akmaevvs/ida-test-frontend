@@ -40,7 +40,7 @@ export default {
   // position: relative;
   z-index: 2;
   background-color: #fefdfa;
-  padding: 32px;
+  padding: 32px 32px 16px 32px;
 
   &__title {
     font-size: 28px;

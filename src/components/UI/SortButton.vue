@@ -91,7 +91,7 @@ export default {
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 40px;
+    top: 70px;
     z-index: 2;
     background-color: #fffefb;
     box-shadow: 0px 2px 5px #0000001a;
