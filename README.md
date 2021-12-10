@@ -10,20 +10,16 @@ npm install
 npm run serve
 ```
 
-## Vue CLI version
-
+## Vue version
 ```
 Vue CLI 4.5.13
 Vue.js 3.0.0
 ```
-## Vue presets
 
+## Vue presets
 ```
 Babel
 CSS Pre-poccessors (Sass/SCSS (with node-sass))
 ESLint with error prevention only
 Lint on save
 ```
-
-
-
